@@ -42,4 +42,4 @@ describe('Flogram syntax highlighting', () =>
     var actual = hljs.highlightAuto(code).language;
     actual.should.eql('flogram');
   });
-});
+}); 
