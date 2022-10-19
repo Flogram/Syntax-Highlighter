@@ -1,0 +1,2 @@
+<span class="hljs-keyword">constant</span> size : <span class="hljs-type">U8</span> = <span class="hljs-number">0</span>       <span class="hljs-comment">// a constant with assignment value of 0</span>
+<span class="hljs-keyword">mut</span> i : <span class="hljs-type">U8</span> = <span class="hljs-number">0</span>       <span class="hljs-comment">// declare and initialize a mutable variable type U8</span>

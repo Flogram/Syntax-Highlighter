@@ -1,0 +1,2 @@
+constant size : U8 = 0       // a constant with assignment value of 0
+mut i : U8 = 0       // declare and initialize a mutable variable type U8

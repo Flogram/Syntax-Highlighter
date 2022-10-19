@@ -12,7 +12,7 @@ fn Body(x : I32 , y : I32, z : I32, vx : I32, vy : I32, vz : I32, mass : I32) ->
 	this.mass := mass
 
 fn Jupiter() -> (body: Body):
-    mut body: Body := new Body(
+    mut body: Body = new Body(
 		4.84143144246472090e+00,
         -1.16032004402742839e+00,
         -1.03622044471123109e-01,
@@ -24,7 +24,7 @@ fn Jupiter() -> (body: Body):
 	return body
 
 fn Neptune() -> (body: Body):
-	mut body: Body := new Body(
+	mut body: Body = new Body(
 		1.53796971148509165e+01,
 		-2.59193146099879641e+01,
 		1.79258772950371181e-01,
@@ -36,7 +36,7 @@ fn Neptune() -> (body: Body):
     return body
 	
 fn Sun() -> (body: Body):
-  mut body: Body := new Body(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SOLAR_MASS)
+  mut body: Body = new Body(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SOLAR_MASS)
   return body
 
 fn offsetMomentum() -> ():
@@ -62,7 +62,7 @@ fn offsetMomentum() -> ():
 	body.vz := /(-pz, SOLAR_MASS)
 
 function advance(dt: F8) -> ():
-    constant size : U8 := bodies.length
+    constant size : U8 = bodies.length
     mut i: U8 := 0
     loop:
         if i:
