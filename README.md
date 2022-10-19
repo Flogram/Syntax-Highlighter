@@ -100,6 +100,6 @@ Didier Munezero <didiermunezero@gmail.com>
 
 - The official site for the Highlight.js library is <https://highlightjs.org/>.
 - The Highlight.js GitHub project: <https://github.com/highlightjs/highlight.js>
-- Learn more about Cypher: <https://flogram.dev/>
+- Learn more about Flogram: <https://flogram.dev/>
 
 [1]: https://github.com/Flogram/Syntax-Highlighter/blob/main/LICENSE
