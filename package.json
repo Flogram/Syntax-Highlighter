@@ -1,31 +1,31 @@
 {
-    "name": "highlightjs-flogram",
-    "version": "1.0.0",
-    "description": "highlightjs syntax for flogram",
-    "main": "src/flogram.js",
-    "scripts": {
-        "test": "./node_modules/.bin/mocha --reporter spec"
-    },
-    "keywords": [
-        "flogram",
-        "highlightjs",
-        "highlight.js",
-        "syntax"
-    ],
-    "author": "Didier MUNEZERO <didiermunezer38@gmail.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/Flogram/Syntax-Highlighter/issues"
-    },
-    "homepage": "https://github.com/Flogram/Syntax-Highlighter#readme",
-    "devDependencies": {
-        "highlight.js": "^10.7.2",
-        "mocha": "^10.0.0",
-        "should": "^13.2.3"
-    },
-    "dependencies": {
-        "highlightjs": "^9.16.2",
-        "minimist": ">=1.2.6",
-        "mkdirp": "^1.0.4"
-    }
+  "name": "highlightjs-flogram",
+  "version": "1.0.0",
+  "description": "highlightjs syntax for flogram",
+  "main": "src/flogram.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "keywords": [
+    "flogram",
+    "highlightjs",
+    "highlight.js",
+    "syntax"
+  ],
+  "author": "Didier MUNEZERO <didiermunezer38@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Flogram/Syntax-Highlighter/issues"
+  },
+  "homepage": "https://github.com/Flogram/Syntax-Highlighter#readme",
+  "devDependencies": {
+    "highlight.js": "^10.7.2",
+    "mocha": "^10.0.0",
+    "should": "^13.2.3"
+  },
+  "dependencies": {
+    "highlightjs": "^9.16.2",
+    "minimist": ">=1.2.6",
+    "mkdirp": "^1.0.4"
+  }
 }

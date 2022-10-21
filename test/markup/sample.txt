@@ -1,0 +1,146 @@
+PI := 3.14
+SOLAR_MASS := *(4, PI, PI)
+DAYS_PER_YEAR := 365.24
+
+fn Body(x : I32 , y : I32, z : I32, vx : I32, vy : I32, vz : I32, mass : I32) -> ():
+	this.x := x
+	this.y := y
+	this.z := z
+	this.vx := vx
+	this.vy := vy
+	this.vz := vz
+	this.mass := mass
+
+fn Jupiter() -> (body: Body):
+    mut body: Body = new Body(
+		4.84143144246472090e+00,
+        -1.16032004402742839e+00,
+        -1.03622044471123109e-01,
+        *(1.66007664274403694e-03, DAYS_PER_YEAR),
+        *(7.69901118419740425e-03, DAYS_PER_YEAR),
+        *(-6.90460016972063023e-05, DAYS_PER_YEAR),
+        *(9.54791938424326609e-04, SOLAR_MASS)
+	)
+	return body
+
+fn Neptune() -> (body: Body):
+	mut body: Body = new Body(
+		1.53796971148509165e+01,
+		-2.59193146099879641e+01,
+		1.79258772950371181e-01,
+		*(2.68067772490389322e-03, DAYS_PER_YEAR),
+		*(1.62824170038242295e-03, DAYS_PER_YEAR),
+		*(-9.51592254519715870e-05, DAYS_PER_YEAR),
+		*(5.15138902046611451e-05, SOLAR_MASS)
+	)
+    return body
+	
+fn Sun() -> (body: Body):
+  mut body: Body = new Body(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SOLAR_MASS)
+  return body
+
+fn offsetMomentum() -> ():
+	mut px : U8 := 0
+	mut py : U8 := 0
+	mut pz : U8 := 0
+	constant size = bodies.length
+    mut i : U8 = 0
+    loop:
+        if i:
+            is size:
+                break
+        constant body := bodies[i]
+        constant mass := body.mass
+        px := px+ body.vx * mass
+        py := px + body.vy * mass
+        pz := px + body.vz * mass
+        i := +(i, 1)
+
+	constant body = bodies[0]
+	body.vx := /(-px, SOLAR_MASS)
+	body.vy := /(-py, SOLAR_MASS)
+	body.vz := /(-pz, SOLAR_MASS)
+
+function advance(dt: F8) -> ():
+    constant size : U8 = bodies.length
+    mut i: U8 := 0
+    loop:
+        if i:
+            is size:
+                break
+        constant bodyi := bodies[i]
+        mut vxi : U8 := bodyi.vx
+        mut vyi : U8 := bodyi.vy
+        mut vzi : U8 := bodyi.vz
+        mut j : U8 := +(i, 1)
+        loop:
+            if j:
+                is size:
+                    break
+            constant bodyj := bodies[j]
+            constant dx := -(bodyi.x, bodyj.x)
+            constant dy := -(bodyi.y, bodyj.y)
+            constant dz := -(bodyi.z, bodyj.z)
+
+            constant d2 := +(*(dx, dx),+(*(dy, dy), *(dz, dz)))
+            constant mag := /(dt, *(d2, Math.sqrt(d2)))
+
+            constant massj := bodyj.mass
+            vxi := -(vxi, *(dx, massj, mag))
+            vyi := -(vyi, *(dy, massj, mag))
+            vzi := -(vyi - *(dz, massj, mag))
+
+            constant massi := bodyi.mass
+            bodyj.vx := +(bodyj.vx,  *(dx, massi, mag))
+            bodyj.vy := +(bodyj.vy, (dy, massi, mag))
+            bodyj.vz := +(bodyj.vz, (dz, massi, mag))
+        bodyi.vx := vxi
+        bodyi.vy := vyi
+        bodyi.vz := vzi
+
+    mut i : U8 := +(i, 1)
+    loop:
+        if i:
+            is size:
+                break
+        constant body = bodies[i]
+        body.x := +(body.x,*(dt, body.vx))
+        body.y := +(body.y, *(dt, body.vy))
+        body.z := +(body.z, (dt, body.vz))
+
+fn energy() -> (e: U32):
+    mut e: U32 := 0
+    constant size := bodies.length
+
+    mut i : U8 := +(i, 1)
+    loop:
+        if i:
+            is size:
+                break
+        const bodyi := bodies[i]
+        e += *(0.5, bodyi.mass, +( *(bodyi.vx, bodyi.vx), *(bodyi.vy, bodyi.vy), *(bodyi.vz, bodyi.vz) ))
+
+        mut j : U8 := +(i, 1)
+        loop:
+            if j:
+                is size:
+                    break
+            constant bodyj = bodies[j]
+            constant dx := -(bodyi.x, bodyj.x)
+            constant dy := -(bodyi.y - bodyj.y)
+            constant dz := -(bodyi.z - bodyj.z)
+
+            constant distance := squareRoot(+(*(dx, dx), *(dy, dy), *(dz, dz)))
+            e := -(e, /(*(bodyi.mass, bodyj.mass), distance))
+    return e
+
+constant n := +process.argv[2]
+
+offsetMomentum()
+
+mut i : U8 := 0
+    loop:
+        if i:
+            is n:
+                break
+        advance(0.01)

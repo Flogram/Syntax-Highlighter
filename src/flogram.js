@@ -29,16 +29,21 @@ module.exports = function (hljs) {
       {
         className: 'type',
         begin: /((-|>)?\s?\(|-\[)\w*:/,
-        excludeBegin: true,
         end: '\\W',
-        excludeEnd: true,
+      },
+      {
+        className: 'property',
+        begin: /\.+\w/,
       },
       {
         className: 'functionCall',
-        begin: /(\s+|,)\w+\(/,
+        begin: /(([!-&*-/:-?])|\w)+\(/,
+        ///(\s+|,)\w+\(/
+        //([a-zA-Z!-&*-/:-?])\w+\(
+        //\[(.*?)\]
         end: /\)/,
         keywords: {
-          built_in: 'all any exists single coalesce endNode head id last length properties size startNode timestamp toBoolean toFloat toInteger type avg collect count max min percentileCont percentileDisc stDev stDevP sum extract filter keys labels nodes range reduce relationships reverse tail abs ceil floor rand round sign e exp log log10 sqrt acos asin atan atan2 cos cot degrees haversin pi radians sin tan left ltrim replace reverse right rtrim split substring toLower toString toUpper trim distance'
+          built_in: 'toString'
         }
       },
       hljs.C_BLOCK_COMMENT_MODE,

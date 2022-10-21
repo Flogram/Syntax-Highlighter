@@ -1,0 +1,146 @@
+    PI := <span class="hljs-number">3.14</span>
+    SOLAR_MASS := <span class="hljs-functionCall">*(4, PI, PI)</span>
+    DAYS_PER_YEAR := <span class="hljs-number">365.24</span>
+      -
+      -<span class="hljs-keyword">fn</span> <span class="hljs-functionCall">Body(x : I32 , y : I32, z : I32, vx : I32, vy : I32, vz : I32, mass : I32)</span> -&gt; ():
+      - <span class="hljs-buit_in">this</span><span class="hljs-property">.x</span> := x
+      - <span class="hljs-buit_in">this</span><span class="hljs-property">.y</span> := y
+      - <span class="hljs-buit_in">this</span><span class="hljs-property">.z</span> := z
+      - <span class="hljs-buit_in">this</span><span class="hljs-property">.v</span>x := vx
+      - <span class="hljs-buit_in">this</span><span class="hljs-property">.v</span>y := vy
+      - <span class="hljs-buit_in">this</span><span class="hljs-property">.v</span>z := vz
+      - <span class="hljs-buit_in">this</span><span class="hljs-property">.m</span>ass := mass
+      -
+      -<span class="hljs-keyword">fn</span> <span class="hljs-functionCall">Jupiter()</span> -<span class="hljs-type">&gt; (body: </span>Body):
+      -    <span class="hljs-keyword">mut</span> body: Body = new <span class="hljs-functionCall">Body(
+      -         4.84143144246472090e+00,
+      -        -1.16032004402742839e+00,
+      -        -1.03622044471123109e-01,
+      -        *(1.66007664274403694e-03, DAYS_PER_YEAR)</span>,
+      -        <span class="hljs-functionCall">*(7.69901118419740425e-03, DAYS_PER_YEAR)</span>,
+      -        <span class="hljs-functionCall">*(-6.90460016972063023e-05, DAYS_PER_YEAR)</span>,
+      -        <span class="hljs-functionCall">*(9.54791938424326609e-04, SOLAR_MASS)</span>
+      - )
+      - <span class="hljs-keyword">return</span> body
+      -
+      -<span class="hljs-keyword">fn</span> <span class="hljs-functionCall">Neptune()</span> -<span class="hljs-type">&gt; (body: </span>Body):
+      - <span class="hljs-keyword">mut</span> body: Body = new <span class="hljs-functionCall">Body(
+      -         1.53796971148509165e+01,
+      -         -2.59193146099879641e+01,
+      -         1.79258772950371181e-01,
+      -         *(2.68067772490389322e-03, DAYS_PER_YEAR)</span>,
+      -         <span class="hljs-functionCall">*(1.62824170038242295e-03, DAYS_PER_YEAR)</span>,
+      -         <span class="hljs-functionCall">*(-9.51592254519715870e-05, DAYS_PER_YEAR)</span>,
+      -         <span class="hljs-functionCall">*(5.15138902046611451e-05, SOLAR_MASS)</span>
+      - )
+      -    <span class="hljs-keyword">return</span> body
+      -
+      -<span class="hljs-keyword">fn</span> <span class="hljs-functionCall">Sun()</span> -<span class="hljs-type">&gt; (body: </span>Body):
+      -  <span class="hljs-keyword">mut</span> body: Body = new <span class="hljs-functionCall">Body(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SOLAR_MASS)</span>
+      -  <span class="hljs-keyword">return</span> body
+      -
+      -<span class="hljs-keyword">fn</span> <span class="hljs-functionCall">offsetMomentum()</span> -&gt; ():
+      - <span class="hljs-keyword">mut</span> px : <span class="hljs-type">U8</span> := <span class="hljs-number">0</span>
+      - <span class="hljs-keyword">mut</span> py : <span class="hljs-type">U8</span> := <span class="hljs-number">0</span>
+      - <span class="hljs-keyword">mut</span> pz : <span class="hljs-type">U8</span> := <span class="hljs-number">0</span>
+      - <span class="hljs-keyword">constant</span> size = bodies<span class="hljs-property">.l</span>ength
+      -    <span class="hljs-keyword">mut</span> i : <span class="hljs-type">U8</span> = <span class="hljs-number">0</span>
+      -    <span class="hljs-keyword">loop</span>:
+      -        <span class="hljs-keyword">if</span> i:
+      -            <span class="hljs-keyword">is</span> size:
+      -                <span class="hljs-keyword">break</span>
+      -        <span class="hljs-keyword">constant</span> body := bodies[i]
+      -        <span class="hljs-keyword">constant</span> mass := body<span class="hljs-property">.m</span>ass
+      -        px := px+ body<span class="hljs-property">.v</span>x * mass
+      -        py := px + body<span class="hljs-property">.v</span>y * mass
+      -        pz := px + body<span class="hljs-property">.v</span>z * mass
+      -        i := <span class="hljs-functionCall">+(i, 1)</span>
+      -
+      - <span class="hljs-keyword">constant</span> body = bodies[<span class="hljs-number">0</span>]
+      - body<span class="hljs-property">.v</span>x := <span class="hljs-functionCall">/(-px, SOLAR_MASS)</span>
+      - body<span class="hljs-property">.v</span>y := <span class="hljs-functionCall">/(-py, SOLAR_MASS)</span>
+      - body<span class="hljs-property">.v</span>z := <span class="hljs-functionCall">/(-pz, SOLAR_MASS)</span>
+      -
+      -function <span class="hljs-functionCall">advance(dt: F8)</span> -&gt; ():
+      -    <span class="hljs-keyword">constant</span> size : <span class="hljs-type">U8</span> = bodies<span class="hljs-property">.l</span>ength
+      -    <span class="hljs-keyword">mut</span> i: <span class="hljs-type">U8</span> := <span class="hljs-number">0</span>
+      -    <span class="hljs-keyword">loop</span>:
+      -        <span class="hljs-keyword">if</span> i:
+      -            <span class="hljs-keyword">is</span> size:
+      -                <span class="hljs-keyword">break</span>
+      -        <span class="hljs-keyword">constant</span> bodyi := bodies[i]
+      -        <span class="hljs-keyword">mut</span> vxi : <span class="hljs-type">U8</span> := bodyi<span class="hljs-property">.v</span>x
+      -        <span class="hljs-keyword">mut</span> vyi : <span class="hljs-type">U8</span> := bodyi<span class="hljs-property">.v</span>y
+      -        <span class="hljs-keyword">mut</span> vzi : <span class="hljs-type">U8</span> := bodyi<span class="hljs-property">.v</span>z
+      -        <span class="hljs-keyword">mut</span> j : <span class="hljs-type">U8</span> := <span class="hljs-functionCall">+(i, 1)</span>
+      -        <span class="hljs-keyword">loop</span>:
+      -            <span class="hljs-keyword">if</span> j:
+      -                <span class="hljs-keyword">is</span> size:
+      -                    <span class="hljs-keyword">break</span>
+      -            <span class="hljs-keyword">constant</span> bodyj := bodies[j]
+      -            <span class="hljs-keyword">constant</span> dx := <span class="hljs-functionCall">-(bodyi.x, bodyj.x)</span>
+      -            <span class="hljs-keyword">constant</span> dy := <span class="hljs-functionCall">-(bodyi.y, bodyj.y)</span>
+      -            <span class="hljs-keyword">constant</span> dz := <span class="hljs-functionCall">-(bodyi.z, bodyj.z)</span>
+      -
+      -            <span class="hljs-keyword">constant</span> d2 := <span class="hljs-functionCall">+(*(dx, dx)</span><span class="hljs-functionCall">,+(*(dy, dy)</span>, <span class="hljs-functionCall">*(dz, dz)</span>))
+      -            <span class="hljs-keyword">constant</span> mag := <span class="hljs-functionCall">/(dt, *(d2, Math.sqrt(d2)</span>))
+      -
+      -            <span class="hljs-keyword">constant</span> massj := bodyj<span class="hljs-property">.m</span>ass
+      -            vxi := <span class="hljs-functionCall">-(vxi, *(dx, massj, mag)</span>)
+      -            vyi := <span class="hljs-functionCall">-(vyi, *(dy, massj, mag)</span>)
+      -            vzi := <span class="hljs-functionCall">-(vyi - *(dz, massj, mag)</span>)
+      -
+      -            <span class="hljs-keyword">constant</span> massi := bodyi<span class="hljs-property">.m</span>ass
+      -            bodyj<span class="hljs-property">.v</span>x := <span class="hljs-functionCall">+(bodyj.vx,  *(dx, massi, mag)</span>)
+      -            bodyj<span class="hljs-property">.v</span>y := <span class="hljs-functionCall">+(bodyj.vy, (dy, massi, mag)</span>)
+      -            bodyj<span class="hljs-property">.v</span>z := <span class="hljs-functionCall">+(bodyj.vz, (dz, massi, mag)</span>)
+      -        bodyi<span class="hljs-property">.v</span>x := vxi
+      -        bodyi<span class="hljs-property">.v</span>y := vyi
+      -        bodyi<span class="hljs-property">.v</span>z := vzi
+      -
+      -    <span class="hljs-keyword">mut</span> i : <span class="hljs-type">U8</span> := <span class="hljs-functionCall">+(i, 1)</span>
+      -    <span class="hljs-keyword">loop</span>:
+      -        <span class="hljs-keyword">if</span> i:
+      -            <span class="hljs-keyword">is</span> size:
+      -                <span class="hljs-keyword">break</span>
+      -        <span class="hljs-keyword">constant</span> body = bodies[i]
+      -        body<span class="hljs-property">.x</span> := <span class="hljs-functionCall">+(body.x,*(dt, body.vx)</span>)
+      -        body<span class="hljs-property">.y</span> := <span class="hljs-functionCall">+(body.y, *(dt, body.vy)</span>)
+      -        body<span class="hljs-property">.z</span> := <span class="hljs-functionCall">+(body.z, (dt, body.vz)</span>)
+      -
+      -<span class="hljs-keyword">fn</span> <span class="hljs-functionCall">energy()</span> -<span class="hljs-type">&gt; (e: </span><span class="hljs-type">U32</span>):
+      -    <span class="hljs-keyword">mut</span> e: <span class="hljs-type">U32</span> := <span class="hljs-number">0</span>
+      -    <span class="hljs-keyword">constant</span> size := bodies<span class="hljs-property">.l</span>ength
+      -
+      -    <span class="hljs-keyword">mut</span> i : <span class="hljs-type">U8</span> := <span class="hljs-functionCall">+(i, 1)</span>
+      -    <span class="hljs-keyword">loop</span>:
+      -        <span class="hljs-keyword">if</span> i:
+      -            <span class="hljs-keyword">is</span> size:
+      -                <span class="hljs-keyword">break</span>
+      -        const bodyi := bodies[i]
+      -        e += <span class="hljs-functionCall">*(0.5, bodyi.mass, +( *(bodyi.vx, bodyi.vx)</span>, <span class="hljs-functionCall">*(bodyi.vy, bodyi.vy)</span>, <span class="hljs-functionCall">*(bodyi.vz, bodyi.vz)</span> ))
+      -
+      -        <span class="hljs-keyword">mut</span> j : <span class="hljs-type">U8</span> := <span class="hljs-functionCall">+(i, 1)</span>
+      -        <span class="hljs-keyword">loop</span>:
+      -            <span class="hljs-keyword">if</span> j:
+      -                <span class="hljs-keyword">is</span> size:
+      -                    <span class="hljs-keyword">break</span>
+      -            <span class="hljs-keyword">constant</span> bodyj = bodies[j]
+      -            <span class="hljs-keyword">constant</span> dx := <span class="hljs-functionCall">-(bodyi.x, bodyj.x)</span>
+      -            <span class="hljs-keyword">constant</span> dy := <span class="hljs-functionCall">-(bodyi.y - bodyj.y)</span>
+      -            <span class="hljs-keyword">constant</span> dz := <span class="hljs-functionCall">-(bodyi.z - bodyj.z)</span>
+      -
+      -            <span class="hljs-keyword">constant</span> distance := <span class="hljs-functionCall">squareRoot(+(*(dx, dx)</span>, <span class="hljs-functionCall">*(dy, dy)</span>, <span class="hljs-functionCall">*(dz, dz)</span>))
+      -            e := <span class="hljs-functionCall">-(e, /(*(bodyi.mass, bodyj.mass)</span>, distance))
+      -    <span class="hljs-keyword">return</span> e
+      -
+      -<span class="hljs-keyword">constant</span> n := +process<span class="hljs-property">.a</span>rgv[<span class="hljs-number">2</span>]
+      -
+      -<span class="hljs-functionCall">offsetMomentum()</span>
+      -
+      -<span class="hljs-keyword">mut</span> i : <span class="hljs-type">U8</span> := <span class="hljs-number">0</span>
+      -    <span class="hljs-keyword">loop</span>:
+      -        <span class="hljs-keyword">if</span> i:
+      -            <span class="hljs-keyword">is</span> n:
+      -                <span class="hljs-keyword">break</span>
+      -        <span class="hljs-functionCall">advance(0.01)</span>
