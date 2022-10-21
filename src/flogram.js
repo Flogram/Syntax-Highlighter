@@ -34,6 +34,7 @@ module.exports = function (hljs) {
       {
         className: 'property',
         begin: /\.+\w/,
+        end: '\\W',
       },
       {
         className: 'functionCall',
