@@ -1,8 +1,11 @@
 /**
  * Language: Flogram
+ * Author: Didier Munezero <didiermunezer38@gmail.com>
  * Contributors:
  *   Didier Munezero <didiermunezer38@gmail.com>
  *   Matthew Czarnek <matt@flogram.dev>
+ * Description: Flogram  grammar definition for Highlight.js
+ * Website: https://flogram.dev
  */
 const FLOGRAM_IDENT_RE = '[\u00C0-\u02B8a-zA-Z_$][\u00C0-\u02B8a-zA-Z_$0-9]*';
 

@@ -4,7 +4,8 @@
   "description": "highlightjs syntax for flogram",
   "main": "src/flogram.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha --reporter spec",
+    "mocha": "mocha --help"
   },
   "keywords": [
     "flogram",
