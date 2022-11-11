@@ -1,3 +1,3 @@
-#Highlighting
+# Highlighting
 
-###Flogram cross-tool highlighting
+### Flogram cross-tool highlighting
