@@ -6,10 +6,10 @@
 <dict>
   <key>fileTypes</key>
   <array> 
-    <string>mysample</string>
+    <string>flo</string>
    </array>
   <key>name</key>
-  <string>mysample</string>
+  <string>flogram</string>
   <key>patterns</key>
   <array> 
     <dict>
@@ -18,7 +18,7 @@
     </dict>
    </array>
   <key>scopeName</key>
-  <string>source.mysample</string>
+  <string>source.flogram</string>
   <key>uuid</key>
   <string />
   <key>repository</key>
@@ -28,187 +28,40 @@
       <key>patterns</key>
       <array> 
         <dict>
-          <key>match</key>
-          <string>(\b[a-z][a-z0-9]*)</string>
-          <key>name</key>
-          <string>keyword.mysample</string>
-        </dict>
-        <dict>
           <key>include</key>
           <string>#numeric</string>
-        </dict>
-        <dict>
-          <key>begin</key>
-          <string>(\{)</string>
-          <key>beginCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>punctuation.mysample</string>
-            </dict>
-          </dict>
-          <key>patterns</key>
-          <array> 
-            <dict>
-              <key>include</key>
-              <string>#main__1</string>
-            </dict>
-           </array>
-          <key>end</key>
-          <string>(\})</string>
-          <key>endCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>punctuation.mysample</string>
-            </dict>
-          </dict>
-        </dict>
-        <dict>
-          <key>match</key>
-          <string>(;)</string>
-          <key>name</key>
-          <string>punctuation.mysample</string>
-        </dict>
-        <dict>
-          <key>begin</key>
-          <string>(\&quot;)</string>
-          <key>beginCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>punctuation.mysample</string>
-            </dict>
-          </dict>
-          <key>contentName</key>
-          <string>text.mysample</string>
-          <key>end</key>
-          <string>(\&quot;)</string>
-          <key>endCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>punctuation.mysample</string>
-            </dict>
-          </dict>
-        </dict>
-        <dict>
-          <key>begin</key>
-          <string>(\()</string>
-          <key>beginCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>punctuation.mysample</string>
-            </dict>
-          </dict>
-          <key>patterns</key>
-          <array> 
-            <dict>
-              <key>include</key>
-              <string>#main__3</string>
-            </dict>
-           </array>
-          <key>end</key>
-          <string>(\))</string>
-          <key>endCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>punctuation.mysample</string>
-            </dict>
-          </dict>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#multi_line_comment</string>
         </dict>
         <dict>
           <key>match</key>
           <string>(//.*)</string>
           <key>name</key>
-          <string>comment.mysample</string>
+          <string>comment.flogram</string>
         </dict>
         <dict>
           <key>match</key>
-          <string>([^\s])</string>
+          <string
+            >(addr_of|any|as|bind|bits|bool|break|constant|contract|else|enum|equals|export|fn|get|if|iface|is|import|interface|length|list|loop|member|mut|native|object|set|types|release|return|value_at)</string>
           <key>name</key>
-          <string>invalid.mysample</string>
-        </dict>
-       </array>
-    </dict>
-    <key>main__1</key>
-    <dict>
-      <key>patterns</key>
-      <array> 
-        <dict>
-          <key>include</key>
-          <string>#main</string>
-        </dict>
-       </array>
-    </dict>
-    <key>main__2</key>
-    <dict>
-      <key>patterns</key>
-      <array> 
-       </array>
-    </dict>
-    <key>main__3</key>
-    <dict>
-      <key>patterns</key>
-      <array> 
-        <dict>
-          <key>include</key>
-          <string>#numeric</string>
+          <string>keyword.flogram</string>
         </dict>
         <dict>
           <key>match</key>
-          <string>(,)</string>
+          <string>(true|false|null|zero)</string>
           <key>name</key>
-          <string>punctuation.mysample</string>
+          <string>text.flogram</string>
         </dict>
-       </array>
-    </dict>
-    <key>multi_line_comment</key>
-    <dict>
-      <key>patterns</key>
-      <array> 
         <dict>
-          <key>begin</key>
-          <string>(/\*)</string>
-          <key>beginCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>comment.mysample</string>
-            </dict>
-          </dict>
-          <key>contentName</key>
-          <string>comment.mysample</string>
-          <key>end</key>
-          <string>(\*/)</string>
-          <key>endCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>comment.mysample</string>
-            </dict>
-          </dict>
+          <key>match</key>
+          <string>(I8|I16|I32|I64|U8|U16|U32|U64|F8|F16|F32|F64|BOOL)</string>
+          <key>name</key>
+          <string>text.flogram</string>
         </dict>
-       </array>
-    </dict>
-    <key>multi_line_comment__1</key>
-    <dict>
-      <key>patterns</key>
-      <array> 
+        <dict>
+          <key>match</key>
+          <string>(\b[A-Z][A-Z0-9]* )</string>
+          <key>name</key>
+          <string>text.flogram</string>
+        </dict>
        </array>
     </dict>
     <key>numeric</key>
@@ -219,7 +72,7 @@
           <key>match</key>
           <string>(\b\d+)</string>
           <key>name</key>
-          <string>constant.numeric.mysample</string>
+          <string>constant.numeric.flogram</string>
         </dict>
        </array>
     </dict>

@@ -1,85 +1,34 @@
 %YAML 1.2
 ---
-name: mysample
-scope: source.mysample
-file_extensions: [mysample]
+name: flogram
+scope: source.flogram
+file_extensions: [flo]
 
 contexts:
   main:
-    - match: '(\b[a-z][a-z0-9]*)'
-      captures:
-        0: keyword.mysample
     - include: numeric
-    - match: '(\{)'
-      captures:
-        0: punctuation.mysample
-      push:
-        - match: '(\})'
-          pop: true
-          captures:
-            0: punctuation.mysample
-        - include: main
-        - match: '(.)'
-          captures:
-            0: text.mysample
-    - match: '(;)'
-      captures:
-        0: punctuation.mysample
-    - match: '(\")'
-      captures:
-        0: punctuation.mysample
-      push:
-        - match: '(\")'
-          pop: true
-          captures:
-            0: punctuation.mysample
-        - match: '(.)'
-          captures:
-            0: text.mysample
-    - match: '(\()'
-      captures:
-        0: punctuation.mysample
-      push:
-        - match: '(\))'
-          pop: true
-          captures:
-            0: punctuation.mysample
-        - include: numeric
-        - match: '(,)'
-          captures:
-            0: punctuation.mysample
-        - match: '(.)'
-          captures:
-            0: text.mysample
-    - include: multi_line_comment
     - match: '(//.*)'
       captures:
-        0: comment.mysample
-    - match: '([^\s])'
+        0: comment.flogram
+    - match: '(addr_of|any|as|bind|bits|bool|break|constant|contract|else|enum|equals|export|fn|get|if|iface|is|import|interface|length|list|loop|member|mut|native|object|set|types|release|return|value_at)'
       captures:
-        0: invalid.mysample
+        0: keyword.flogram
+    - match: '(true|false|null|zero)'
+      captures:
+        0: text.flogram
+    - match: '(I8|I16|I32|I64|U8|U16|U32|U64|F8|F16|F32|F64|BOOL)'
+      captures:
+        0: text.flogram
+    - match: '(\b[A-Z][A-Z0-9]* )'
+      captures:
+        0: text.flogram
     - match: '(.)'
       captures:
-        0: text.mysample
+        0: text.flogram
   numeric:
     - match: '(\b\d+)'
       captures:
-        0: constant.numeric.mysample
+        0: constant.numeric.flogram
     - match: '(.)'
       captures:
-        0: text.mysample
-  multi_line_comment:
-    - match: '(/\*)'
-      captures:
-        0: comment.mysample
-      push:
-        - match: '(\*/)'
-          pop: true
-          captures:
-            0: comment.mysample
-        - match: '(.)'
-          captures:
-            0: comment.mysample
-    - match: '(.)'
-      captures:
-        0: text.mysample
+        0: text.flogram
