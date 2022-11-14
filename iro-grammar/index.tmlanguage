@@ -1,0 +1,157 @@
+#################################################################
+## Iro
+################################################################ 
+##
+## * Press Ctrl + '+'/'-' To Zoom in
+## * Press Ctrl + S to save and recalculate... 
+## * Documents are saved to web storage.
+## * Only one save slot supported.
+## * Matches cannot span lines.
+## * Unicode chars must be defined in \u0000 to \uffff format.
+## * All matches must be contained by a single group ( ... )
+## * Look behinds not permitted, (?<= or (?<!
+## * Look forwards are permitted (?= or (?!
+## * Constants are defined as __my_const = (......)
+## * The \= format allows unescaped regular expressions
+## * Constants referenced by match \= $${__my_const}
+## * Constants can reference other constants
+## * You are free to delete all the default scopes.
+## * Twitter : ainslec , Web: http://eeyo.io/iro
+##
+################################################################
+
+name                   = flogram
+file_extensions []     = flo;
+
+################################################################
+## Constants
+################################################################
+
+__MY_CONSTANT \= (\b[A-Z][A-Z0-9]*)
+
+################################################################
+## Styles
+################################################################
+
+styles [] {
+
+.comment : style {
+   color                 = light_green
+   italic                = true
+   ace_scope             = comment
+   textmate_scope        = comment
+   pygments_scope        = Comment
+}
+
+.keyword : style {
+   color     = cyan
+   ace_scope             = keyword
+   textmate_scope        = keyword
+   pygments_scope        = Keyword
+}
+
+.numeric : style {
+   color                 = gold
+   ace_scope             = constant.numeric
+   textmate_scope        = constant.numeric
+   pygments_scope        = Number
+}
+
+.punctuation : style {
+   color     = red_2
+   ace_scope             = punctuation
+   textmate_scope        = punctuation
+   pygments_scope        = Punctuation
+}
+
+.text : style {
+   color                 = brown
+   ace_scope             = text
+   textmate_scope        = text
+   pygments_scope        = String
+}
+
+.illegal : style {
+   color                 = white
+   background_color      = red
+   ace_scope             = invalid
+   textmate_scope        = invalid
+   pygments_scope        = Generic.Error
+}
+
+.literal : style {
+   color                 = red
+}
+
+.constant : style {
+   color = gold
+}
+
+.type : style {
+   color =  red
+}
+
+}
+
+#################################################
+## Parse contexts
+#################################################
+
+contexts [] {
+
+##############################################
+## Main Context - Entry point context
+##############################################
+
+main : context {
+
+   
+   : include "numeric" ;
+   
+   
+   : pattern {
+      regex          \= (//.*)
+      styles []       = .comment;
+   }
+   
+   :pattern {
+      regex          \= (addr_of|any|as|bind|bits|bool|break|constant|contract|else|enum|equals|export|fn|get|if|iface|is|import|interface|length|list|loop|member|mut|native|object|set|types|release|return|value_at)
+      styles []      = .keyword;
+   }
+   
+   :pattern {
+      regex          \=(true|false|null|zero)
+      styles []      = .literal;
+   }
+   
+   :pattern {
+      regex          \=(I8|I16|I32|I64|U8|U16|U32|U64|F8|F16|F32|F64|BOOL)
+      styles []      = .type;
+   }
+   
+   :pattern {
+      regex       \=(\b[A-Z][A-Z0-9]* )
+      styles []      = .constant;
+   }
+   
+   
+   
+}
+
+#################################################
+## End of Contexts
+#################################################
+
+###########################################
+## Numeric Context
+###########################################
+
+numeric : context {
+   : pattern {
+      regex          \= (\b\d+)
+      styles []       = .numeric;
+   }
+}
+
+   
+}
