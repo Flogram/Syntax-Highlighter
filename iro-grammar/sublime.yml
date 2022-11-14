@@ -1,0 +1,85 @@
+%YAML 1.2
+---
+name: mysample
+scope: source.mysample
+file_extensions: [mysample]
+
+contexts:
+  main:
+    - match: '(\b[a-z][a-z0-9]*)'
+      captures:
+        0: keyword.mysample
+    - include: numeric
+    - match: '(\{)'
+      captures:
+        0: punctuation.mysample
+      push:
+        - match: '(\})'
+          pop: true
+          captures:
+            0: punctuation.mysample
+        - include: main
+        - match: '(.)'
+          captures:
+            0: text.mysample
+    - match: '(;)'
+      captures:
+        0: punctuation.mysample
+    - match: '(\")'
+      captures:
+        0: punctuation.mysample
+      push:
+        - match: '(\")'
+          pop: true
+          captures:
+            0: punctuation.mysample
+        - match: '(.)'
+          captures:
+            0: text.mysample
+    - match: '(\()'
+      captures:
+        0: punctuation.mysample
+      push:
+        - match: '(\))'
+          pop: true
+          captures:
+            0: punctuation.mysample
+        - include: numeric
+        - match: '(,)'
+          captures:
+            0: punctuation.mysample
+        - match: '(.)'
+          captures:
+            0: text.mysample
+    - include: multi_line_comment
+    - match: '(//.*)'
+      captures:
+        0: comment.mysample
+    - match: '([^\s])'
+      captures:
+        0: invalid.mysample
+    - match: '(.)'
+      captures:
+        0: text.mysample
+  numeric:
+    - match: '(\b\d+)'
+      captures:
+        0: constant.numeric.mysample
+    - match: '(.)'
+      captures:
+        0: text.mysample
+  multi_line_comment:
+    - match: '(/\*)'
+      captures:
+        0: comment.mysample
+      push:
+        - match: '(\*/)'
+          pop: true
+          captures:
+            0: comment.mysample
+        - match: '(.)'
+          captures:
+            0: comment.mysample
+    - match: '(.)'
+      captures:
+        0: text.mysample
