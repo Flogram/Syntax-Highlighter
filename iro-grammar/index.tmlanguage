@@ -124,7 +124,7 @@ main : context {
    }
    
    : inline_push {
-      regex          \= (\[A-Za-z].)
+      regex          \= (\[A-Za-z]*.)
       styles []       = .keyword;
       default_style   = .keyword
       : pop {
@@ -185,7 +185,7 @@ main : context {
    }
    
    :pattern {
-      regex       \=(\b[A-Z|_][A-Z0-9_]* )
+      regex       \=(\b[A-Z|_][A-Z0-9_]*)
       styles []      = .constant;
    }
    
