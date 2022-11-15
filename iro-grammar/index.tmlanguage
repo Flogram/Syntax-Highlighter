@@ -50,6 +50,10 @@ styles [] {
    pygments_scope        = Keyword
 }
 
+.default : style {
+   color                = white
+}
+
 .numeric : style {
    color                 = gold
    ace_scope             = constant.numeric
@@ -83,12 +87,13 @@ styles [] {
    color                 = red
 }
 
+
 .constant : style {
    color = gold
 }
 
 .type : style {
-   color =  red
+   color =  pink
 }
 
 }
@@ -108,30 +113,85 @@ main : context {
    
    : include "numeric" ;
    
+   : inline_push {
+      regex          \= (\")
+      styles []       = .punctuation;
+      default_style   = .text
+      : pop {
+         regex       \= (\")
+         styles []    = .punctuation;
+      }
+   }
+   
+   : inline_push {
+      regex          \= (\[A-Za-z].)
+      styles []       = .keyword;
+      default_style   = .keyword
+      : pop {
+         regex       \= (\()|$\)
+         styles []    = .keyword;
+      }
+   }
+   
+   : inline_push {
+      regex          \= (\:\ )
+      styles []       = .default;
+      default_style   = .type
+      : pop {
+         regex       \= (\=|$|\)|,)
+         styles []    = .default;
+      }
+   }
+   
+   : inline_push {
+      regex          \= (\{)
+      styles []       = .punctuation;
+      : pop {  
+         regex       \= (\})
+         styles []    = .punctuation;
+      }
+      : include "main" ;
+   }
+   
+   : inline_push {
+      regex          \= (\()
+      styles []       = .punctuation;
+      : pop {  
+         regex       \= (\))
+         styles []    = .punctuation;
+      }
+      : include "main" ;
+   }
+   
    
    : pattern {
-      regex          \= (//.*)
+      regex          \= (#.*)
       styles []       = .comment;
    }
    
    :pattern {
-      regex          \= (addr_of|any|as|bind|bits|bool|break|constant|contract|else|enum|equals|export|fn|get|if|iface|is|import|interface|length|list|loop|member|mut|native|object|set|types|release|return|value_at)
+      regex          \= (addr_of|any|as |bind |bits |bool |break |constant |contract |else |enum |equals |export |fn| get |if |iface |is |import |interface |length |list |loop |member |mut |native |object |set |types |release |return |value_at |this|this. )
       styles []      = .keyword;
    }
    
    :pattern {
-      regex          \=(true|false|null|zero)
+      regex          \=(true |false |null |zero )
       styles []      = .literal;
    }
    
    :pattern {
-      regex          \=(I8|I16|I32|I64|U8|U16|U32|U64|F8|F16|F32|F64|BOOL)
+      regex          \=(I8 |I16 |I32 |I64 |U8 |U16 |U32 |U64 |F8 |F16 |F32 |F64 |BOOL )
       styles []      = .type;
    }
    
    :pattern {
-      regex       \=(\b[A-Z][A-Z0-9]* )
+      regex       \=(\b[A-Z|_][A-Z0-9_]* )
       styles []      = .constant;
+   }
+   
+   : pattern {
+      regex          \= (;)
+      styles []       = .illegal;
    }
    
    
