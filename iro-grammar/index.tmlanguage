@@ -124,6 +124,16 @@ main : context {
    }
    
    : inline_push {
+      regex          \= ([f][n][ ])
+      styles []       = .keyword;
+      default_style   = .type
+      : pop {
+         regex       \= (\W|_/g)
+         styles []   = .punctuation;
+      }
+   }
+   
+   : inline_push {
       regex          \= (\[A-Za-z]*.)
       styles []       = .keyword;
       default_style   = .keyword
@@ -170,7 +180,7 @@ main : context {
    }
    
    :pattern {
-      regex          \= (addr_of|any|as |bind |bits |bool |break |constant |contract |else |enum |equals |export |fn| get |if |iface |is |import |interface |length |list |loop |member |mut |native |object |set |types |release |return |value_at |this|this. )
+      regex          \= (addr_of|any|as |bind |bits |bool |break |contract |else |enum |equals |export | get |if |iface |is |import |interface |length |list |loop |member |mut |native |set |types |release |return |value_at |this|this. )
       styles []      = .keyword;
    }
    
@@ -185,13 +195,28 @@ main : context {
    }
    
    :pattern {
-      regex       \=(\b[A-Z|_][A-Z0-9_]*)
+      regex       \=(\b[A-Z|_][A-Z|_][A-Z0-9_]*)
       styles []      = .constant;
+   }
+   
+   : inline_push {
+      regex          \= (object )
+      styles []       = .keyword;
+      default_style   = .constant
+      : pop {  
+         regex       \= (:)
+         styles []    = .default;
+      }
    }
    
    : pattern {
       regex          \= (;)
       styles []       = .illegal;
+   }
+   
+   : pattern {
+      regex          \= (\))
+      styles []       = .punctuation;
    }
    
    
