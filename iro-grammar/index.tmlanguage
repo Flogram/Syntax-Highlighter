@@ -85,15 +85,38 @@ styles [] {
 
 .literal : style {
    color                 = red
+   ace_scope             = text
+   textmate_scope        = text
+   pygments_scope        = Literal
+}
+
+.builtin : style {
+   color                = #5F9EA0
+   ace_scope             = punctuation
+   textmate_scope        = punctuation
+   pygments_scope        = Punctuation
 }
 
 
 .constant : style {
    color = gold
+   ace_scope             = punctuation
+   textmate_scope        = punctuation
+   pygments_scope        = Literal
 }
 
 .type : style {
-   color =  pink
+   color                 = pink
+   ace_scope             = punctuation
+   textmate_scope        = punctuation
+   pygments_scope        = Generic.Strong
+}
+
+.variable : style {
+   color                = #E0115F
+   ace_scope             = punctuation
+   textmate_scope        = punctuation
+   pygments_scope        = Generic.Strong
 }
 
 }
@@ -180,17 +203,22 @@ main : context {
    }
    
    :pattern {
-      regex          \= (addr_of|any|as |bind |bits |bool |break |contract |else |enum |equals |export | get |if |iface |is |import |interface |length |list |loop |member |mut |native |set |types |release |return |value_at |this|this. )
+      regex          \= (addr_of |any |as |bind |bits |bool |break |contract |else |enum |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )
       styles []      = .keyword;
    }
    
    :pattern {
-      regex          \=(true |false |null |zero )
-      styles []      = .literal;
+      regex          \=(true|true |false|false |null|null |zero|zero )
+      styles []      = .builtin;
    }
    
    :pattern {
-      regex          \=(I8 |I16 |I32 |I64 |U8 |U16 |U32 |U64 |F8 |F16 |F32 |F64 |BOOL )
+      regex       \=(self|self |this|this |break |break)
+      styles []   =.literal;
+   }
+   
+   :pattern {
+      regex          \=(I8|I8 |I16|I16 |I32|I32 |I64|I64 |U8|U8 |U16|U16 |U32|U32 |U64|U64 |F8|F8 |F16|F16 |F32|F32 |F64|F64 |BOOL|BOOL )
       styles []      = .type;
    }
    
@@ -205,6 +233,16 @@ main : context {
       default_style   = .constant
       : pop {  
          regex       \= (:)
+         styles []    = .default;
+      }
+   }
+   
+   : inline_push {
+      regex          \= (mut )
+      styles []       = .keyword;
+      default_style   = .variable
+      : pop {  
+         regex       \= ( |:)
          styles []    = .default;
       }
    }
