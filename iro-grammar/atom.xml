@@ -16,6 +16,10 @@
         'include' : '#numeric'
       }
       {
+        'match' : '(\\))'
+        'name' : 'invalid.flogram'
+      }
+      {
         'begin' : '(\\")'
         'beginCaptures' : {
           '1' : {
@@ -68,10 +72,10 @@
           }
         }
         'contentName' : 'punctuation.flogram'
-        'end' : '(\\=|$|\\)|,)'
+        'end' : '(\\W)'
         'endCaptures' : {
           '1' : {
-            'name' : 'text.flogram'
+            'name' : 'punctuation.flogram'
           }
         }
       }
@@ -95,30 +99,11 @@
         }
       }
       {
-        'begin' : '(\\()'
-        'beginCaptures' : {
-          '1' : {
-            'name' : 'punctuation.flogram'
-          }
-        }
-        'patterns' : [
-          {
-            'include' : '#main__6'
-          }
-        ]
-        'end' : '(\\))'
-        'endCaptures' : {
-          '1' : {
-            'name' : 'punctuation.flogram'
-          }
-        }
-      }
-      {
         'match' : '(#.*)'
         'name' : 'comment.flogram'
       }
       {
-        'match' : '(addr_of |any |as |bind |bits |bool |break |contract |else |enum |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )'
+        'match' : '(addr_of |any |as |bind |bits |bool |break |contract |else|else |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )'
         'name' : 'keyword.flogram'
       }
       {
@@ -168,11 +153,26 @@
         }
       }
       {
+        'begin' : '(enum )'
+        'beginCaptures' : {
+          '1' : {
+            'name' : 'keyword.flogram'
+          }
+        }
+        'contentName' : 'comment.flogram'
+        'end' : '( |:)'
+        'endCaptures' : {
+          '1' : {
+            'name' : 'text.flogram'
+          }
+        }
+      }
+      {
         'match' : '(;)'
         'name' : 'invalid.flogram'
       }
       {
-        'match' : '(\\))'
+        'match' : '(&|\\||\\*|-|!|/|%?>|<|\\(|\\))'
         'name' : 'punctuation.flogram'
       }
     ]
@@ -202,9 +202,6 @@
   }
   'main__6' : {
     'patterns' : [
-      {
-        'include' : '#main'
-      }
     ]
   }
   'main__7' : {

@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
-  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
+<?xml  version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"   "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0" >
 <!-- Generated via Iro -->
 <dict>
   <key>fileTypes</key>
@@ -20,7 +19,7 @@
   <key>scopeName</key>
   <string>source.flogram</string>
   <key>uuid</key>
-  <string />
+  <string></string>
   <key>repository</key>
   <dict>
     <key>main</key>
@@ -30,6 +29,12 @@
         <dict>
           <key>include</key>
           <string>#numeric</string>
+        </dict>
+        <dict>
+          <key>match</key>
+          <string>(\))</string>
+          <key>name</key>
+          <string>invalid.flogram</string>
         </dict>
         <dict>
           <key>begin</key>
@@ -117,13 +122,13 @@
           <key>contentName</key>
           <string>punctuation.flogram</string>
           <key>end</key>
-          <string>(\=|$|\)|,)</string>
+          <string>(\W)</string>
           <key>endCaptures</key>
           <dict>
             <key>1</key>
             <dict>
               <key>name</key>
-              <string>text.flogram</string>
+              <string>punctuation.flogram</string>
             </dict>
           </dict>
         </dict>
@@ -157,35 +162,6 @@
           </dict>
         </dict>
         <dict>
-          <key>begin</key>
-          <string>(\()</string>
-          <key>beginCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>punctuation.flogram</string>
-            </dict>
-          </dict>
-          <key>patterns</key>
-          <array> 
-            <dict>
-              <key>include</key>
-              <string>#main__6</string>
-            </dict>
-           </array>
-          <key>end</key>
-          <string>(\))</string>
-          <key>endCaptures</key>
-          <dict>
-            <key>1</key>
-            <dict>
-              <key>name</key>
-              <string>punctuation.flogram</string>
-            </dict>
-          </dict>
-        </dict>
-        <dict>
           <key>match</key>
           <string>(#.*)</string>
           <key>name</key>
@@ -193,8 +169,7 @@
         </dict>
         <dict>
           <key>match</key>
-          <string
-            >(addr_of |any |as |bind |bits |bool |break |contract |else |enum |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )</string>
+          <string>(addr_of |any |as |bind |bits |bool |break |contract |else|else |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )</string>
           <key>name</key>
           <string>keyword.flogram</string>
         </dict>
@@ -212,8 +187,7 @@
         </dict>
         <dict>
           <key>match</key>
-          <string
-            >(I8|I8 |I16|I16 |I32|I32 |I64|I64 |U8|U8 |U16|U16 |U32|U32 |U64|U64 |F8|F8 |F16|F16 |F32|F32 |F64|F64 |BOOL|BOOL )</string>
+          <string>(I8|I8 |I16|I16 |I32|I32 |I64|I64 |U8|U8 |U16|U16 |U32|U32 |U64|U64 |F8|F8 |F16|F16 |F32|F32 |F64|F64 |BOOL|BOOL )</string>
           <key>name</key>
           <string>punctuation.flogram</string>
         </dict>
@@ -272,6 +246,30 @@
           </dict>
         </dict>
         <dict>
+          <key>begin</key>
+          <string>(enum )</string>
+          <key>beginCaptures</key>
+          <dict>
+            <key>1</key>
+            <dict>
+              <key>name</key>
+              <string>keyword.flogram</string>
+            </dict>
+          </dict>
+          <key>contentName</key>
+          <string>comment.flogram</string>
+          <key>end</key>
+          <string>( |:)</string>
+          <key>endCaptures</key>
+          <dict>
+            <key>1</key>
+            <dict>
+              <key>name</key>
+              <string>text.flogram</string>
+            </dict>
+          </dict>
+        </dict>
+        <dict>
           <key>match</key>
           <string>(;)</string>
           <key>name</key>
@@ -279,7 +277,7 @@
         </dict>
         <dict>
           <key>match</key>
-          <string>(\))</string>
+          <string>(&amp;|\||\*|-|!|/|%?&gt;|&lt;|\(|\))</string>
           <key>name</key>
           <string>punctuation.flogram</string>
         </dict>
@@ -323,10 +321,6 @@
     <dict>
       <key>patterns</key>
       <array> 
-        <dict>
-          <key>include</key>
-          <string>#main</string>
-        </dict>
        </array>
     </dict>
     <key>main__7</key>

@@ -136,6 +136,11 @@ main : context {
    
    : include "numeric" ;
    
+   : pattern {
+      regex          \= (\))
+      styles []       = .illegal;
+   }
+   
    : inline_push {
       regex          \= (\")
       styles []       = .punctuation;
@@ -171,8 +176,8 @@ main : context {
       styles []       = .default;
       default_style   = .type
       : pop {
-         regex       \= (\=|$|\)|,)
-         styles []    = .default;
+         regex       \= (\W)
+         styles []    = .punctuation;
       }
    }
    
@@ -186,16 +191,6 @@ main : context {
       : include "main" ;
    }
    
-   : inline_push {
-      regex          \= (\()
-      styles []       = .punctuation;
-      : pop {  
-         regex       \= (\))
-         styles []    = .punctuation;
-      }
-      : include "main" ;
-   }
-   
    
    : pattern {
       regex          \= (#.*)
@@ -203,7 +198,7 @@ main : context {
    }
    
    :pattern {
-      regex          \= (addr_of |any |as |bind |bits |bool |break |contract |else |enum |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )
+      regex          \= (addr_of |any |as |bind |bits |bool |break |contract |else|else |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )
       styles []      = .keyword;
    }
    
@@ -247,15 +242,26 @@ main : context {
       }
    }
    
+   : inline_push {
+      regex          \= (enum )
+      styles []       = .keyword;
+      default_style   = .comment
+      : pop {  
+         regex       \= ( |:)
+         styles []    = .default;
+      }
+   }
+   
    : pattern {
       regex          \= (;)
       styles []       = .illegal;
    }
    
    : pattern {
-      regex          \= (\))
+      regex          \= (&|\||\*|-|!|/|%?>|<|\(|\))
       styles []       = .punctuation;
    }
+   
    
    
    

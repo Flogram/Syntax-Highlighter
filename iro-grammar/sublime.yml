@@ -2,15 +2,18 @@
 ---
 name: flogram
 scope: source.flogram
-file_extensions: [flo]
+file_extensions: [ flo ]
 
 contexts:
   main:
     - include: numeric
+    - match: '(\))'
+      captures:
+        0: invalid.flogram
     - match: '(\")'
       captures:
         0: punctuation.flogram
-      push:
+      push: 
         - match: '(\")'
           pop: true
           captures:
@@ -21,7 +24,7 @@ contexts:
     - match: '([f][n][\x{0020}])'
       captures:
         0: keyword.flogram
-      push:
+      push: 
         - match: '(\W|_/g)'
           pop: true
           captures:
@@ -32,7 +35,7 @@ contexts:
     - match: '(\[A-Za-z]*.)'
       captures:
         0: keyword.flogram
-      push:
+      push: 
         - match: '(\()|$\)'
           pop: true
           captures:
@@ -43,31 +46,19 @@ contexts:
     - match: '(\:\ )'
       captures:
         0: text.flogram
-      push:
-        - match: '(\=|$|\)|,)'
+      push: 
+        - match: '(\W)'
           pop: true
           captures:
-            0: text.flogram
+            0: punctuation.flogram
         - match: '(.)'
           captures:
             0: punctuation.flogram
     - match: '(\{)'
       captures:
         0: punctuation.flogram
-      push:
+      push: 
         - match: '(\})'
-          pop: true
-          captures:
-            0: punctuation.flogram
-        - include: main
-        - match: '(.)'
-          captures:
-            0: text.flogram
-    - match: '(\()'
-      captures:
-        0: punctuation.flogram
-      push:
-        - match: '(\))'
           pop: true
           captures:
             0: punctuation.flogram
@@ -78,7 +69,7 @@ contexts:
     - match: '(#.*)'
       captures:
         0: comment.flogram
-    - match: '(addr_of |any |as |bind |bits |bool |break |contract |else |enum |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )'
+    - match: '(addr_of |any |as |bind |bits |bool |break |contract |else|else |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )'
       captures:
         0: keyword.flogram
     - match: '(true|true |false|false |null|null |zero|zero )'
@@ -96,7 +87,7 @@ contexts:
     - match: '(object )'
       captures:
         0: keyword.flogram
-      push:
+      push: 
         - match: '(:)'
           pop: true
           captures:
@@ -107,7 +98,7 @@ contexts:
     - match: '(mut )'
       captures:
         0: keyword.flogram
-      push:
+      push: 
         - match: '( |:)'
           pop: true
           captures:
@@ -115,10 +106,21 @@ contexts:
         - match: '(.)'
           captures:
             0: punctuation.flogram
+    - match: '(enum )'
+      captures:
+        0: keyword.flogram
+      push: 
+        - match: '( |:)'
+          pop: true
+          captures:
+            0: text.flogram
+        - match: '(.)'
+          captures:
+            0: comment.flogram
     - match: '(;)'
       captures:
         0: invalid.flogram
-    - match: '(\))'
+    - match: '(&|\||\*|-|!|/|%?>|<|\(|\))'
       captures:
         0: punctuation.flogram
     - match: '(.)'
