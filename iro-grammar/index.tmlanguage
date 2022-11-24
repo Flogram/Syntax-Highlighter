@@ -191,7 +191,12 @@ main : context {
       : include "main" ;
    }
    
-   
+   : pattern {
+      regex          \= (\})
+      styles []      = .illegal;
+   }
+
+
    : pattern {
       regex          \= (#.*)
       styles []       = .comment;

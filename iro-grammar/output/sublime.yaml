@@ -1,0 +1,138 @@
+%YAML 1.2
+---
+name: flogram
+scope: source.flogram
+file_extensions: [flo]
+
+contexts:
+  main:
+    - include: numeric
+    - match: '(\))'
+      captures:
+        0: invalid.flogram
+    - match: '(\")'
+      captures:
+        0: punctuation.flogram
+      push:
+        - match: '(\")'
+          pop: true
+          captures:
+            0: punctuation.flogram
+        - match: '(.)'
+          captures:
+            0: text.flogram
+    - match: '([f][n][\x{0020}])'
+      captures:
+        0: keyword.flogram
+      push:
+        - match: '(\W|_/g)'
+          pop: true
+          captures:
+            0: punctuation.flogram
+        - match: '(.)'
+          captures:
+            0: punctuation.flogram
+    - match: '(\[A-Za-z]*.)'
+      captures:
+        0: keyword.flogram
+      push:
+        - match: '(\()|$\)'
+          pop: true
+          captures:
+            0: keyword.flogram
+        - match: '(.)'
+          captures:
+            0: keyword.flogram
+    - match: '(\:\ )'
+      captures:
+        0: text.flogram
+      push:
+        - match: '(\W)'
+          pop: true
+          captures:
+            0: punctuation.flogram
+        - match: '(.)'
+          captures:
+            0: punctuation.flogram
+    - match: '(\{)'
+      captures:
+        0: punctuation.flogram
+      push:
+        - match: '(\})'
+          pop: true
+          captures:
+            0: punctuation.flogram
+        - include: main
+        - match: '(.)'
+          captures:
+            0: text.flogram
+    - match: '(\})'
+      captures:
+        0: invalid.flogram
+    - match: '(#.*)'
+      captures:
+        0: comment.flogram
+    - match: '(addr_of |any |as |bind |bits |bool |break |contract |else|else |equals |export | get |if |iface |is |import |interface |length |list |loop |member |native |set |types |release |return |value_at |this|this. )'
+      captures:
+        0: keyword.flogram
+    - match: '(true|true |false|false |null|null |zero|zero )'
+      captures:
+        0: punctuation.flogram
+    - match: '(self|self |this|this |break |break)'
+      captures:
+        0: text.flogram
+    - match: '(I8|I8 |I16|I16 |I32|I32 |I64|I64 |U8|U8 |U16|U16 |U32|U32 |U64|U64 |F8|F8 |F16|F16 |F32|F32 |F64|F64 |BOOL|BOOL )'
+      captures:
+        0: punctuation.flogram
+    - match: '(\b[A-Z\x{007c}_][A-Z\x{007c}_][A-Z0-9_]*)'
+      captures:
+        0: punctuation.flogram
+    - match: '(object )'
+      captures:
+        0: keyword.flogram
+      push:
+        - match: '(:)'
+          pop: true
+          captures:
+            0: text.flogram
+        - match: '(.)'
+          captures:
+            0: punctuation.flogram
+    - match: '(mut )'
+      captures:
+        0: keyword.flogram
+      push:
+        - match: '( |:)'
+          pop: true
+          captures:
+            0: text.flogram
+        - match: '(.)'
+          captures:
+            0: punctuation.flogram
+    - match: '(enum )'
+      captures:
+        0: keyword.flogram
+      push:
+        - match: '( |:)'
+          pop: true
+          captures:
+            0: text.flogram
+        - match: '(.)'
+          captures:
+            0: comment.flogram
+    - match: '(;)'
+      captures:
+        0: invalid.flogram
+    - match: '(&|\||\*|-|!|/|%?>|<|\(|\))'
+      captures:
+        0: punctuation.flogram
+    - match: '(.)'
+      captures:
+        0: text.flogram
+  numeric:
+    - match: '(\b\d+)'
+      captures:
+        0: constant.numeric.flogram
+    - match: '(.)'
+      captures:
+        0: text.flogram
