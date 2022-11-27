@@ -136,11 +136,6 @@ main : context {
    
    : include "numeric" ;
    
-   : pattern {
-      regex          \= (\))
-      styles []       = .illegal;
-   }
-   
    : inline_push {
       regex          \= (\")
       styles []       = .punctuation;
@@ -152,7 +147,17 @@ main : context {
    }
    
    : inline_push {
-      regex          \= ([f][n][ ])
+      regex          \= (fn )
+      styles []       = .keyword;
+      default_style   = .type
+      : pop {
+         regex       \= (\W|_/g)
+         styles []   = .punctuation;
+      }
+   }
+   
+   : inline_push {
+      regex          \= (new )
       styles []       = .keyword;
       default_style   = .type
       : pop {
@@ -180,21 +185,6 @@ main : context {
          styles []    = .punctuation;
       }
    }
-   
-   : inline_push {
-      regex          \= (\{)
-      styles []       = .punctuation;
-      : pop {  
-         regex       \= (\})
-         styles []    = .punctuation;
-      }
-      : include "main" ;
-   }
-   
-   : pattern {
-      regex          \= (\})
-      styles []      = .illegal;
-   }
 
 
    : pattern {
@@ -208,7 +198,7 @@ main : context {
    }
    
    :pattern {
-      regex          \=(true|true |false|false |null|null |zero|zero )
+      regex          \=(true|true |false|false |null|null |zero|zero |None|None )
       styles []      = .builtin;
    }
    
@@ -238,6 +228,16 @@ main : context {
    }
    
    : inline_push {
+      regex          \= (foreach )
+      styles []       = .keyword;
+      : pop {  
+         regex       \= (:)
+         styles []    = .keyword;
+      }
+      : include "foreach";
+   }
+   
+   : inline_push {
       regex          \= (mut )
       styles []       = .keyword;
       default_style   = .variable
@@ -262,11 +262,11 @@ main : context {
       styles []       = .illegal;
    }
    
+   
    : pattern {
-      regex          \= (&|\||\*|-|!|/|%?>|<|\(|\))
+      regex          \= (&|\||\*|-|!|/|%?>|<|\(|\)|\}|\[|\])
       styles []       = .punctuation;
    }
-   
    
    
    
@@ -285,6 +285,19 @@ numeric : context {
       regex          \= (\b\d+)
       styles []       = .numeric;
    }
+}
+
+foreach : context {
+   : include "main";
+   :pattern {
+      regex       \=(\b[a-z|_][A-Za-z0-9_]*)
+      styles []      = .constant;
+   }
+   :pattern {
+      regex       \=( in )
+      styles []      = .type;
+   }
+   
 }
 
    
