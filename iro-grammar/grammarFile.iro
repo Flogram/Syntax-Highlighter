@@ -120,7 +120,14 @@ styles [] {
 }
 
 .variable : style {
-   color                = #E0115F
+   color                 = #E0115F
+   ace_scope             = punctuation
+   textmate_scope        = punctuation
+   pygments_scope        = Generic.Strong
+}
+
+.assignment : style {
+   color                 = #8A00D4
    ace_scope             = punctuation
    textmate_scope        = punctuation
    pygments_scope        = Generic.Strong
@@ -235,6 +242,16 @@ main : context {
    }
    
    : inline_push {
+      regex          \= (-> )
+      styles []       = .punctuation;
+      default_style   = .customType
+      : pop {  
+         regex       \= (:)
+         styles []    = .assignment;
+      }
+   }
+   
+   : inline_push {
       regex          \= (foreach )
       styles []       = .keyword;
       : pop {  
@@ -262,6 +279,11 @@ main : context {
          regex       \= ( |:)
          styles []    = .default;
       }
+   }
+   
+   : pattern {
+      regex          \= (:=|:|=|!=)
+      styles []       = .assignment;
    }
    
    : pattern {
