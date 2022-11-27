@@ -36,8 +36,15 @@ __MY_CONSTANT \= (\b[A-Z][A-Z0-9]*)
 styles [] {
 
 .comment : style {
-   color                 = light_green
+   color                 = #FFB200
    italic                = true
+   ace_scope             = comment
+   textmate_scope        = comment
+   pygments_scope        = Comment
+}
+
+.customType : style {
+   color                 = #FFB200
    ace_scope             = comment
    textmate_scope        = comment
    pygments_scope        = Comment
@@ -69,7 +76,7 @@ styles [] {
 }
 
 .text : style {
-   color                 = brown
+   color                 = light_green
    ace_scope             = text
    textmate_scope        = text
    pygments_scope        = String
@@ -91,7 +98,7 @@ styles [] {
 }
 
 .builtin : style {
-   color                = #5F9EA0
+   color                = #FF731D
    ace_scope             = punctuation
    textmate_scope        = punctuation
    pygments_scope        = Punctuation
@@ -138,11 +145,11 @@ main : context {
    
    : inline_push {
       regex          \= (\")
-      styles []       = .punctuation;
+      styles []       = .text;
       default_style   = .text
       : pop {
          regex       \= (\")
-         styles []    = .punctuation;
+         styles []    = .text;
       }
    }
    
@@ -198,12 +205,12 @@ main : context {
    }
    
    :pattern {
-      regex          \=(true|true |false|false |null|null |zero|zero |None|None )
+      regex          \=(true|true |false|false |null|null |zero|zero |None|None |self|self )
       styles []      = .builtin;
    }
    
    :pattern {
-      regex       \=(self|self |this|this |break |break)
+      regex       \=(this|this |break |break)
       styles []   =.literal;
    }
    
@@ -220,7 +227,7 @@ main : context {
    : inline_push {
       regex          \= (object )
       styles []       = .keyword;
-      default_style   = .constant
+      default_style   = .customType
       : pop {  
          regex       \= (:)
          styles []    = .default;
@@ -250,7 +257,7 @@ main : context {
    : inline_push {
       regex          \= (enum )
       styles []       = .keyword;
-      default_style   = .comment
+      default_style   = .customType
       : pop {  
          regex       \= ( |:)
          styles []    = .default;
@@ -262,9 +269,14 @@ main : context {
       styles []       = .illegal;
    }
    
+   : pattern {
+      regex          \= ([.][A-Za-z0-9_]*)
+      styles []      = .type;
+   }
+   
    
    : pattern {
-      regex          \= (&|\||\*|-|!|/|%?>|<|\(|\)|\}|\[|\])
+      regex          \= (&|\||\*|-|!|/|%?>|<|\(|\)|\{|\}|\[|\])
       styles []       = .punctuation;
    }
    

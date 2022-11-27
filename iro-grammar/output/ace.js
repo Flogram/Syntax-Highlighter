@@ -2,7 +2,7 @@
  * To try in Ace editor, copy and paste into the mode creator
  * here : http://ace.c9.io/tool/mode_creator.html
  */
-
+this.jfasd.y = "dfasdfadsfa"
 define(function (require, exports, module) {
     "use strict";
     var oop = require("../lib/oop");
