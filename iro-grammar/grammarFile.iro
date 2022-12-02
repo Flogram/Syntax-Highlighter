@@ -57,8 +57,11 @@ styles [] {
    pygments_scope        = Keyword
 }
 
-.default : style {
-   color                = white
+.function : style {
+   color                 = pink
+   ace_scope             = punctuation
+   textmate_scope        = punctuation
+   pygments_scope        = Generic.Strong
 }
 
 .numeric : style {
@@ -113,7 +116,7 @@ styles [] {
 }
 
 .type : style {
-   color                 = pink
+   color                 = grey
    ace_scope             = punctuation
    textmate_scope        = punctuation
    pygments_scope        = Generic.Strong
@@ -163,7 +166,7 @@ main : context {
    : inline_push {
       regex          \= (fn )
       styles []       = .keyword;
-      default_style   = .type
+      default_style   = .function
       : pop {
          regex       \= (\W|_/g)
          styles []   = .punctuation;
@@ -192,11 +195,21 @@ main : context {
    
    : inline_push {
       regex          \= (\:\ )
-      styles []       = .default;
+      styles []       = .assignment;
       default_style   = .type
       : pop {
          regex       \= (\W)
          styles []    = .punctuation;
+      }
+   }
+   
+   : inline_push {
+      regex          \= (self )
+      styles []       = .builtin;
+      default_style   = .customType
+      : pop {  
+         regex       \= ([A-Za-z0-9_]*)
+         styles []    = .customType;
       }
    }
 
@@ -237,7 +250,7 @@ main : context {
       default_style   = .customType
       : pop {  
          regex       \= (:)
-         styles []    = .default;
+         styles []    = .assignment;
       }
    }
    
@@ -256,7 +269,7 @@ main : context {
       styles []       = .keyword;
       : pop {  
          regex       \= (:)
-         styles []    = .keyword;
+         styles []    = .assignment;
       }
       : include "foreach";
    }
@@ -267,7 +280,7 @@ main : context {
       default_style   = .variable
       : pop {  
          regex       \= ( |:)
-         styles []    = .default;
+         styles []    = .assignment;
       }
    }
    
@@ -277,7 +290,7 @@ main : context {
       default_style   = .customType
       : pop {  
          regex       \= ( |:)
-         styles []    = .default;
+         styles []    = .assignment;
       }
    }
    
@@ -295,6 +308,7 @@ main : context {
       regex          \= ([.][A-Za-z0-9_]*)
       styles []      = .type;
    }
+   
    
    
    : pattern {
