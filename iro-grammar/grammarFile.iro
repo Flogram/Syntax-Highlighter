@@ -164,6 +164,16 @@ main : context {
    }
    
    : inline_push {
+      regex          \= (\')
+      styles []       = .text;
+      default_style   = .text
+      : pop {
+         regex       \= (\')
+         styles []    = .text;
+      }
+   }
+   
+   : inline_push {
       regex          \= (fn )
       styles []       = .keyword;
       default_style   = .function
@@ -312,8 +322,13 @@ main : context {
    
    
    : pattern {
-      regex          \= (&|\||\*|-|!|/|%?>|<|\(|\)|\{|\}|\[|\])
+      regex          \= (!|/|%?>|<|\(|\)|\[|\])
       styles []       = .punctuation;
+   }
+   
+   : pattern {
+   regex          \= (&|\||\*|-|\+|!|\{|\})
+      styles []       = .customType;
    }
    
    
