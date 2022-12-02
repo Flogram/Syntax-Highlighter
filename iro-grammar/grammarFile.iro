@@ -235,7 +235,7 @@ main : context {
    }
    
    :pattern {
-      regex          \=(true|true |false|false |null|null |zero|zero |None|None |self|self )
+      regex          \=(true|true |false|false |null|null |zero|zero |None|None |self|self |File|Base)
       styles []      = .builtin;
    }
    
@@ -316,7 +316,7 @@ main : context {
    
    : pattern {
       regex          \= ([.][A-Za-z0-9_]*)
-      styles []      = .type;
+      styles []      = .function;
    }
    
    
