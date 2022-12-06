@@ -36,7 +36,7 @@ __MY_CONSTANT \= (\b[A-Z][A-Z0-9]*)
 styles [] {
 
 .comment : style {
-   color                 = "#FFB200";
+   color                 = yellow
    italic                = true
    ace_scope             = comment
    textmate_scope        = comment
@@ -44,7 +44,7 @@ styles [] {
 }
 
 .customType : style {
-   color                 = "#FFB200";
+   color                 = yellow
    ace_scope             = comment
    textmate_scope        = comment
    pygments_scope        = Comment
@@ -101,7 +101,7 @@ styles [] {
 }
 
 .builtin : style {
-   color                = "#FF731D";
+   color                 = orange
    ace_scope             = punctuation
    textmate_scope        = punctuation
    pygments_scope        = Punctuation
@@ -123,14 +123,14 @@ styles [] {
 }
 
 .variable : style {
-   color                 = "#E0115F";
+   color                 = red
    ace_scope             = punctuation
    textmate_scope        = punctuation
    pygments_scope        = Generic.Strong
 }
 
 .assignment : style {
-   color                 = "#8A00D4";
+   color                 = blue
    ace_scope             = punctuation
    textmate_scope        = punctuation
    pygments_scope        = Generic.Strong
