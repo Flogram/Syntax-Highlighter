@@ -1,0 +1,25 @@
+{
+  "name": "flogram-intelliscence",
+  "displayName": "Flogram Intelliscence",
+  "description": "Flogram Highlightin",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "flogram",
+      "aliases": ["Flogram", "flogram"],
+      "extensions": [".flo"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "flogram",
+      "scopeName": "",
+      "path": "./syntaxes/flogram.tmLanguage.json"
+    }]
+  }
+}
